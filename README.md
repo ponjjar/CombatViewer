@@ -1,4 +1,4 @@
-# CombateViwer
+# CombateViewer
 Visualizador de combate em python 
 Estudo de reconhecimento de gestos utilizando python e unity.
 
