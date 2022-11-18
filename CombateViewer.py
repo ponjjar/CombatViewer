@@ -24,7 +24,12 @@ def SaveLastClickPos(event):
 '''
 
 window = tk.Tk()
-
+def setColor(color):
+    global line_options
+    line_options = {
+            'width': 10,
+            'fill': color,
+             }
 imageLayer = Toplevel(window)
 menus = Toplevel(window)
 root = Toplevel(window)
@@ -34,7 +39,6 @@ root.attributes('-fullscreen', True)
 
 imageLayer.attributes('-alpha', 0.7)
 imageLayer.configure(background='black')    
-imageLayer.geometry("700x700")
 
 bg = ImageTk.PhotoImage(file="./kalunguinhas/background/imagem.jpg")
 bgCanvas = tk.Canvas(imageLayer)
@@ -46,7 +50,7 @@ def resize_image(e):
    # open image to resize it
    image = Image.open("./kalunguinhas/background/imagem.jpg")
    # resize the image with width and height of root
-   resized = image.resize((e.width, e.height), Image.ANTIALIAS)
+   resized = image.resize((int(e.width), int(e.width * image.height / image.width)), Image.ANTIALIAS)
 
    image2 = ImageTk.PhotoImage(resized)
    bgCanvas.create_image(0, 0, image=image2, anchor='nw')
@@ -70,8 +74,8 @@ def delete():
 
 def shiftdelete():
     can.delete(tk.ALL)
-customHeight = 100
-customWidth = 150
+customHeight = 75
+customWidth = 120  
 #carregando imagens
 
 cias= [
@@ -165,11 +169,11 @@ def create_pelcom():
     print(str(object_id))
 def create_pelmort():
     global object_id
-    object_id = can.create_image(10, 10,image=cias[13], anchor=tk.NW)
+    object_id = can.create_image(10, 10,image=cias[14], anchor=tk.NW)
     print(str(object_id))
 def create_pelexp():
     global object_id
-    object_id = can.create_image(10, 10,image=cias[14], anchor=tk.NW)
+    object_id = can.create_image(10, 10,image=cias[13], anchor=tk.NW)
     print(str(object_id))
 
 def create_pmt():
@@ -249,6 +253,10 @@ def drag(event):   # drag by holding mouse button 1
                 captured = can.find_closest(event.x, event.y)
                 print(f'captured: {captured}')
                 
+                x0, y0, x1, y1 = can.bbox(captured)
+                xt, yt = event.x + (x0 - x1 ) // 2, event.y + (y0 - y1) // 2      # 1st square movement coords
+                can.coords(captured, xt, yt)
+                
         else:
                 x0, y0, x1, y1 = can.bbox(captured)
                 xt, yt = event.x + (x0 - x1 ) // 2, event.y + (y0 - y1) // 2      # 1st square movement coords
@@ -279,9 +287,13 @@ can.bind('<Button-1>', capture)
 can.bind('<ButtonRelease-1>', release)
 can.bind('<B1-Motion>', drag) '''
 root.bind('<Button-1>', capture)
-
 root.bind('<ButtonRelease-1>', release)
 root.bind('<B1-Motion>', drag)
+
+
+window.bind('<Button-1>', capture)
+window.bind('<ButtonRelease-1>', release)
+window.bind('<B1-Motion>', drag)
 
 '''
 btn_line = tk.Button(window, text='Line', width=30, height=2,command=create_line)
@@ -320,6 +332,7 @@ def createFirstMenu():
     
     btn_itirenarios = tk.Button(menus, text='Itirenarios',  font= ('Aerial 12'), width=30, height=2, command=lambda: [createItirenariosMenu(), btn_itirenarios.destroy(), btn_28bimec.destroy(), btn_paisvermelho.destroy(),btn_patrulha.destroy()])
     btn_itirenarios.pack()
+    
     btn_paisvermelho = tk.Button(menus, text='Pais vermelho',   font= ('Aerial 12'), width=30, height=2)
     btn_paisvermelho.pack()
     
@@ -329,14 +342,29 @@ def createFirstMenu():
 
 def createItirenariosMenu():
     
-    btn_drawitirenarios = tk.Button(menus, text='Criar Itinerário',  font= ('Aerial 12'), width=30, height=2, command=lambda: [setSelectedDraw(True)])
-    btn_drawitirenarios.pack()
+    #btn_drawitirenarios = tk.Button(menus, text='Criar Itinerário',  font= ('Aerial 12'), width=30, height=2, command=lambda: [setSelectedDraw(True)])
+    #btn_drawitirenarios.pack()
+    
+    btn_corvermelha = tk.Button(menus, text='Vermelho',  font= ('Aerial 12'), width=30, height=2, command=lambda: [setSelectedDraw(True), setColor("red")])
+    btn_corvermelha.pack()
+    
+    btn_corazul = tk.Button(menus, text='Azul',  font= ('Aerial 12'), width=30, height=2, command=lambda: [setSelectedDraw(True), setColor("blue")])
+    btn_corazul.pack()
+
+    btn_corverde = tk.Button(menus, text='Verde',  font= ('Aerial 12'), width=30, height=2, command=lambda: [setSelectedDraw(True), setColor("green")])
+    btn_corverde.pack()
+    
+    btn_coramarela = tk.Button(menus, text='Amarelo',  font= ('Aerial 12'), width=30, height=2, command=lambda: [setSelectedDraw(True), setColor("yellow")])
+    btn_coramarela.pack()
+    
+    btn_corpreta = tk.Button(menus, text='Preto',  font= ('Aerial 12'), width=30, height=2, command=lambda: [setSelectedDraw(True), setColor("black")])
+    btn_corpreta.pack()
     btn_undoItirenarios = tk.Button(menus, text='Desfazer Itinerário',  font= ('Aerial 12'), width=30, height=2, command=lambda: [undo_listDraw()])
     btn_undoItirenarios.pack()
     
     btn_limpar = tk.Button(menus, text='Limpar Itinerários',  font= ('Aerial 12'), width=30, height=2, command=lambda: [deleteAllDraw()])
     btn_limpar.pack()
-    btn_voltar = tk.Button(menus, text='Voltar', font= ('Aerial 12'),  width=30, height=2, command=lambda: [setSelectedDraw(False),createFirstMenu(), btn_drawitirenarios.destroy(), btn_limpar,btn_undoItirenarios.destroy(),btn_voltar.destroy()])
+    btn_voltar = tk.Button(menus, text='Voltar', font= ('Aerial 12'),  width=30, height=2, command=lambda: [setSelectedDraw(False),createFirstMenu(), btn_coramarela.destroy(),btn_corvermelha.destroy(),btn_corverde.destroy(),btn_corpreta.destroy(),btn_corazul.destroy(), btn_limpar.destroy(),btn_undoItirenarios.destroy(),btn_voltar.destroy()])
     btn_voltar.pack()
     
 
@@ -368,27 +396,29 @@ def createCiasMenu():
 
 line = None  # this is a reference to the current line (id)
 points = []  # list to keep track of current line coordinates
-line_options = {
-    'width': 20,
-    'fill': 'red',
-}  # dictionary to allow easier change of line options
+line_options = {}
 def set_first(event):
     points.extend([event.x, event.y])
+    global line_options
+
 lines = []
 
 lastmetter = 0
+
 def append_and_draw(event):
     global lastmetter
     global line
+    global line_options
+# dictionary to allow easier change of line options
     points.extend([event.x, event.y])
     print ((line))
     if len(points) - lastmetter > 100:
         lastmetter = len(points)
-        label_disance = Label(can, text=str(lastmetter) + "m", font= ('Aerial 10'))
-        label_disance.place(x = event.x,y = event.y)
-        
-        lines.append(label_disance)
+       # label_disance = Label(can, text=str(lastmetter) + "m", font= ('Aerial 10'))
+       # label_disance.place(x = event.x,y = event.y)
+       # lines.append(label_disance)
     if len(points) == 4:
+  
         lastmetter=0
         line = can.create_line(points, **line_options)
         lines.append(line)
@@ -425,7 +455,7 @@ def createCAPmenu():
     btn_pelmort = tk.Button(menus, text='Pel Mort', font= ('Aerial 12'),  width=30,height=2, command=lambda: [create_pelmort()])
     btn_pelsau = tk.Button(menus, text='Pel Sau', font= ('Aerial 12'),  width=30,height=2, command=lambda: [create_saude()])
     btn_pmt = tk.Button(menus, text='PMT', font= ('Aerial 12'), width=30,height=2, command=lambda: [create_pmt()])
-    btn_voltar = tk.Button(menus, text='Voltar', font= ('Aerial 12'),  width=30, height=2, command=lambda: [createFirstMenu(), btn_28bimec.destroy(), btn_ccap.destroy(),btn_pmt.destroy(),btn_pelcom.destroy(),btn_pelsau.destroy(), btn_pelrec.destroy(),btn_pelmort.destroy(), btn_voltar.destroy()])
+    btn_voltar = tk.Button(menus, text='Voltar', font= ('Aerial 12'),  width=30, height=2, command=lambda: [createCiasMenu(), btn_28bimec.destroy(), btn_ccap.destroy(),btn_pmt.destroy(),btn_pelcom.destroy(),btn_pelsau.destroy(), btn_pelrec.destroy(),btn_pelmort.destroy(), btn_voltar.destroy()])
     
     btn_ccap.pack()    
     btn_pelcom.pack()
@@ -449,7 +479,7 @@ def createPelMenu(posicao):
     btn_1pelotao = tk.Button(menus, text='1° Pelotão', font= ('Aerial 12'),  width=30, height=2, command=lambda:[createGC(posicao, 1),btn_voltar.destroy(),btn_1pelotao.destroy(),btn_2pelotao.destroy(),btn_3pelotao.destroy(),btn_4pelotao.destroy(),btn_1cia.destroy(),btn_2cia.destroy(),btn_3cia.destroy()])
     btn_2pelotao = tk.Button(menus, text='2° Pelotão', font= ('Aerial 12'),  width=30, height=2, command=lambda:[createGC(posicao, 2),btn_voltar.destroy(),btn_1pelotao.destroy(),btn_2pelotao.destroy(),btn_3pelotao.destroy(),btn_4pelotao.destroy(),btn_1cia.destroy(),btn_2cia.destroy(),btn_3cia.destroy()])
     btn_3pelotao = tk.Button(menus, text='3° Pelotão', font= ('Aerial 12'), width=30, height=2, command=lambda:[createGC(posicao, 3),btn_voltar.destroy(),btn_1pelotao.destroy(),btn_2pelotao.destroy(),btn_3pelotao.destroy(),btn_4pelotao.destroy(),btn_1cia.destroy(),btn_2cia.destroy(),btn_3cia.destroy()])
-    btn_4pelotao = tk.Button(menus, text='4° Pelotão', font= ('Aerial 12'),  width=30, height=2, command=lambda:[createGC(posicao, 4),btn_voltar.destroy(),btn_1pelotao.destroy(),btn_2pelotao.destroy(),btn_3pelotao.destroy(),btn_4pelotao.destroy(),btn_1cia.destroy(),btn_2cia.destroy(),btn_3cia.destroy()])
+    btn_4pelotao = tk.Button(menus, text='Pelotão de apoio', font= ('Aerial 12'),  width=30, height=2, command=lambda:[createGC(posicao, 4),btn_voltar.destroy(),btn_1pelotao.destroy(),btn_2pelotao.destroy(),btn_3pelotao.destroy(),btn_4pelotao.destroy(),btn_1cia.destroy(),btn_2cia.destroy(),btn_3cia.destroy()])
     btn_1pelotao.pack()
     btn_2pelotao.pack()
     btn_3pelotao.pack()
@@ -460,7 +490,7 @@ def createGC(posicao, pel):
     btn_1pelotao = tk.Button(menus, text='1° Pelotão', font= ('Aerial 12 underline'),  width=30, height=2, command=create_1pelotao)
     btn_3pelotao = tk.Button(menus, text='3° Pelotão', font= ('Aerial 12 underline'),  width=30, height=2, command=create_3pelotao)
     btn_2pelotao = tk.Button(menus, text='2° Pelotão', font= ('Aerial 12 underline'),  width=30, height=2, command=create_2pelotao)
-    btn_4pelotao = tk.Button(menus, text='4° Pelotão', font= ('Aerial 12 underline'),  width=30, height=2, command=create_4pelotao)
+    btn_4pelotao = tk.Button(menus, text='Pelotão de apoio', font= ('Aerial 12 underline'),  width=30, height=2, command=create_4pelotao)
     if(pel == 1):
         btn_1pelotao.pack()
     elif(pel == 2):
@@ -506,5 +536,5 @@ def move_window(event):
 
 #transparent background
 #window.wm_attributes('-alpha',0.5  )
-menus.bind("<B1-Motion>", move_window)
+menus.bind("<space>", move_window)
 window.mainloop()
