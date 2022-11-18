@@ -20,3 +20,8 @@ Salvar e carregar projeto
 2- Fazer a parte da carta topografica
 
 3- (extra) fazer a mescla do sandbox com a carta
+
+Escalas de cores (Hue no opencv)
+
+![image](https://user-images.githubusercontent.com/58194653/202765848-e05eeef4-d891-457c-b731-8f02c8d8a5f7.png)
+
