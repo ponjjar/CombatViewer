@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="kalunguinhas">
+    <file>com.jpg</file>
+    <file>28bimec.png</file>
+    <file>com.png</file>
+  </qresource>
+</RCC>
