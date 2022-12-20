@@ -6,7 +6,9 @@ from win32api import GetSystemMetrics
 from PIL import Image,ImageTk
 #import win32gui
 #import win32con
-secondMonitor=1920
+#vermelho
+
+
 lastClickX = 0
 lastClickY = 0
 buttonWidth =  str(int(float(GetSystemMetrics(0)) / 9 / 20 ))
@@ -20,6 +22,14 @@ paisvermelho = False
 selectedDraw = False
 defaultSide = tk.LEFT
 
+#Carrega estado das configurações passadas no settings.txt
+try:
+    arquivo = open('settings.txt', 'r')
+    linhas = arquivo.readlines()
+    secondMonitor = int(linhas[0].replace("\n", "").split(":")[1])
+finally:
+                #Fechar o arquivo
+                arquivo.close ()
 #Salva ultima posição do mouse
 '''
 def SaveLastClickPos(event):
