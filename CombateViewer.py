@@ -1,13 +1,8 @@
 import tkinter as tk
-
 from tkinter import Toplevel, Label
+from win32 import win32api
 from win32api import GetSystemMetrics
-
 from PIL import Image,ImageTk
-#import win32gui
-#import win32con
-#vermelho
-
 
 lastClickX = 0
 lastClickY = 0
@@ -22,34 +17,9 @@ paisvermelho = False
 selectedDraw = False
 defaultSide = tk.LEFT
 
-#Carrega estado das configurações passadas no settings.txt
-try:
-    arquivo = open('settings.txt', 'r')
-    linhas = arquivo.readlines()
-    secondMonitor = int(linhas[0].replace("\n", "").split(":")[1])
-finally:
-                #Fechar o arquivo
-                arquivo.close ()
-#Salva ultima posição do mouse
-'''
-def SaveLastClickPos(event):
-    global lastClickX, lastClickY
-    lastClickX = event.x
-    lastClickY = event.y
-'''
-#move a janela
-'''def Dragging(event):
-    x, y = event.x - lastClickX + window.winfo_x(), event.y - lastClickY + window.winfo_y()
-    window.geometry("+%s+%s" % (x , y))
-'''
+from classes.settingsLoader import *
 
 window = tk.Tk()
-def setColor(color):
-    global line_options
-    line_options = {
-            'width': 10,
-            'fill': color,
-             }
 imageLayer = Toplevel(window)
 menus = Toplevel(window)
 root = Toplevel(window)
@@ -88,244 +58,39 @@ def click(event):
 
         can.coords(object_id, event.x, event.y)
 
+def setColor(color):
+    global line_options
+    line_options = {
+            'width': 10,
+            'fill': color,
+             }
 
 def delete():
        can.delete(captured)
 
 def shiftdelete():
     can.delete(tk.ALL)
-customHeight = 75
-customWidth = 120  
 #carregando imagens
 
-cias= [
-    #color red
- ImageTk.PhotoImage(Image.open("./kalunguinhas/28bimec.png").resize((int(float(customWidth )* 1.2),int(float(customHeight )* 1.2)), Image.ANTIALIAS)),
-ImageTk.PhotoImage((Image.open("./kalunguinhas/28bimec/cias/1.png")).resize((customWidth, customHeight), Image.ANTIALIAS)),
- ImageTk.PhotoImage(Image.open("./kalunguinhas/28bimec/cias/2.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-ImageTk.PhotoImage(Image.open("./kalunguinhas/28bimec/cias/3.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-ImageTk.PhotoImage(Image.open("./kalunguinhas/28bimec/cias/ccap.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-
-ImageTk.PhotoImage(Image.open("./kalunguinhas/28bimec/cias/1/1pel.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-ImageTk.PhotoImage(Image.open("./kalunguinhas/28bimec/cias/1/2pel.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-ImageTk.PhotoImage(Image.open("./kalunguinhas/28bimec/cias/1/3pel.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-ImageTk.PhotoImage(Image.open("./kalunguinhas/28bimec/cias/1/4pel.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-
-
-ImageTk.PhotoImage(Image.open("./kalunguinhas/28bimec/cias/1/1pel/1gc.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-ImageTk.PhotoImage(Image.open("./kalunguinhas/28bimec/cias/1/1pel/2gc.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-ImageTk.PhotoImage(Image.open("./kalunguinhas/28bimec/cias/1/1pel/3gc.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-ImageTk.PhotoImage(Image.open("./kalunguinhas/28bimec/cias/ccap/com.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-ImageTk.PhotoImage(Image.open("./kalunguinhas/28bimec/cias/ccap/exp.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-ImageTk.PhotoImage(Image.open("./kalunguinhas/28bimec/cias/ccap/mort.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-ImageTk.PhotoImage(Image.open("./kalunguinhas/28bimec/cias/ccap/pmt.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-ImageTk.PhotoImage(Image.open("./kalunguinhas/28bimec/cias/ccap/saude.png").resize((customWidth,customHeight), Image.ANTIALIAS))]
-
-ciasVermelho= [
-    #color red
- ImageTk.PhotoImage(Image.open("./kalunguinhas-vermelho/28bimec.png").resize((int(float(customWidth )* 1.2),int(float(customHeight )* 1.2)), Image.ANTIALIAS)),
-ImageTk.PhotoImage((Image.open("./kalunguinhas-vermelho/28bimec/cias/1.png")).resize((customWidth, customHeight), Image.ANTIALIAS)),
- ImageTk.PhotoImage(Image.open("./kalunguinhas-vermelho/28bimec/cias/2.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-ImageTk.PhotoImage(Image.open("./kalunguinhas-vermelho/28bimec/cias/3.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-ImageTk.PhotoImage(Image.open("./kalunguinhas-vermelho/28bimec/cias/ccap.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-
-ImageTk.PhotoImage(Image.open("./kalunguinhas-vermelho/28bimec/cias/1/1pel.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-ImageTk.PhotoImage(Image.open("./kalunguinhas-vermelho/28bimec/cias/1/2pel.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-ImageTk.PhotoImage(Image.open("./kalunguinhas-vermelho/28bimec/cias/1/3pel.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-ImageTk.PhotoImage(Image.open("./kalunguinhas-vermelho/28bimec/cias/1/4pel.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-
-
-ImageTk.PhotoImage(Image.open("./kalunguinhas-vermelho/28bimec/cias/1/1pel/1gc.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-ImageTk.PhotoImage(Image.open("./kalunguinhas-vermelho/28bimec/cias/1/1pel/2gc.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-ImageTk.PhotoImage(Image.open("./kalunguinhas-vermelho/28bimec/cias/1/1pel/3gc.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-ImageTk.PhotoImage(Image.open("./kalunguinhas-vermelho/28bimec/cias/ccap/com.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-ImageTk.PhotoImage(Image.open("./kalunguinhas-vermelho/28bimec/cias/ccap/exp.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-ImageTk.PhotoImage(Image.open("./kalunguinhas-vermelho/28bimec/cias/ccap/mort.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-ImageTk.PhotoImage(Image.open("./kalunguinhas/28bimec/cias/ccap/pmt.png").resize((customWidth,customHeight), Image.ANTIALIAS)),
-ImageTk.PhotoImage(Image.open("./kalunguinhas-vermelho/28bimec/cias/ccap/saude.png").resize((customWidth,customHeight), Image.ANTIALIAS))]
-
-
+from classes.imagesLoader import *
 global object_id
-def create28bimec():
-        global object_id
-        global paisvermelho
-        if paisvermelho == False:
-            object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=cias[0], anchor=tk.NW)
-        #color red
-        else:
-            object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=ciasVermelho[0], anchor=tk.NW)
-        print(str(object_id))
-def create_1cia():
-    global object_id
-    global paisvermelho
-    if paisvermelho == False:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=cias[1], anchor=tk.NW)
-    #color red
-    else:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=ciasVermelho[1], anchor=tk.NW)
-
-def create_2cia():
-    global object_id
-    global paisvermelho
-    if paisvermelho == False:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=cias[2], anchor=tk.NW)
-    #color red
-    else:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=ciasVermelho[2], anchor=tk.NW)
-def create_3cia():
-    global object_id
-    global paisvermelho
-    if paisvermelho == False:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=cias[3], anchor=tk.NW)
-    #color red
-    else:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=ciasVermelho[3], anchor=tk.NW)
-def create_ccap():
-    global object_id
-    global paisvermelho
-    if paisvermelho == False:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=cias[4], anchor=tk.NW)
-    #color red
-    else:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=ciasVermelho[4], anchor=tk.NW)
-
-
-def create_1pelotao():
-    global object_id
-    global paisvermelho
-    if paisvermelho == False:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=cias[5], anchor=tk.NW)
-    #color red
-    else:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=ciasVermelho[5], anchor=tk.NW)
-    
-def create_2pelotao():
-    global object_id
-    global paisvermelho
-    if paisvermelho == False:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=cias[6], anchor=tk.NW)
-    #color red
-    else:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=ciasVermelho[6], anchor=tk.NW)
-    
-def create_3pelotao():
-    global object_id
-    global paisvermelho
-    if paisvermelho == False:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=cias[7], anchor=tk.NW)
-    #color red
-    else:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=ciasVermelho[7], anchor=tk.NW)
-    
-def create_4pelotao():
-    global object_id
-    global paisvermelho
-    if paisvermelho == False:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=cias[8], anchor=tk.NW)
-    #color red
-    else:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=ciasVermelho[8], anchor=tk.NW)
-def create_1gc():
-    global object_id
-    global paisvermelho
-    if paisvermelho == False:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=cias[9], anchor=tk.NW)
-    #color red
-    else:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=ciasVermelho[9], anchor=tk.NW)
-    
-def create_2gc():
-    global object_id
-    global paisvermelho
-    if paisvermelho == False:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=cias[10], anchor=tk.NW)
-    #color red
-    else:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=ciasVermelho[10], anchor=tk.NW)
-    
-def create_3gc():
-    global object_id
-    global paisvermelho
-    if paisvermelho == False:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=cias[11], anchor=tk.NW)
-    #color red
-    else:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=ciasVermelho[11], anchor=tk.NW)
-
-def bimecMenu():
-    destroyFirstMenu
-    createCiasMenu()
-
-def create_pelcom():
-    global object_id
-    global paisvermelho
-    if paisvermelho == False:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=cias[12], anchor=tk.NW)
-    #color red
-    else:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=ciasVermelho[12], anchor=tk.NW)
-def create_pelmort():
-    global object_id
-    global paisvermelho
-    if paisvermelho == False:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=cias[14], anchor=tk.NW)
-    #color red
-    else:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=ciasVermelho[14], anchor=tk.NW)
-def create_pelexp():
-    global object_id
-    global paisvermelho
-    if paisvermelho == False:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=cias[13], anchor=tk.NW)
-    #color red
-    else:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=ciasVermelho[13], anchor=tk.NW)
-def create_pmt():
-    global object_id
-    global paisvermelho
-    if paisvermelho == False:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=cias[15], anchor=tk.NW)
-    #color red
-    else:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=ciasVermelho[15], anchor=tk.NW)
-
-def create_saude():
-    global object_id
-    global paisvermelho
-    if paisvermelho == False:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=cias[16], anchor=tk.NW)
-    #color red
-    else:
-        object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=ciasVermelho[16], anchor=tk.NW)
-# --- main ---
-
-def create_line():
-    global object_id
-
-    object_id = can.create_line(200, 200, 100, 100, fill='red', width=5)
-
-def create_circle():
-    global object_id
-
-    object_id = can.create_oval(10, 10, 70, 70, fill='orange', outline='blue')
-
-object_id = None
+def createKalunga(id):
+      global object_id  
+      if paisvermelho == False:
+            object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=imagesPais[id], anchor=tk.NW)
+      #paisVermelho
+      else:
+            object_id = can.create_image(int(GetSystemMetrics(0) / 2), int(GetSystemMetrics(1) / 3),image=imagesPaisVermelho[id], anchor=tk.NW)
+      print(str(object_id))
 
 transparent_color = 'grey15'
-'''
-def setClickthrough(hwnd):
-    print("setting window properties")
-    try:
-        styles = win32gui.GetWindowLong(hwnd, win32con.GWL_EXSTYLE)
-        styles = win32con.WS_EX_LAYERED | win32con.WS_EX_TRANSPARENT
-        win32gui.SetWindowLong(hwnd, win32con.GWL_EXSTYLE, styles)
-        win32gui.SetLayeredWindowAttributes(hwnd, 0, 255, win32con.LWA_ALPHA)
-    except Exception as e:
-        print(e)
-        '''
+#Can2 sera o canvas com a imagem dos mapa
 can2 = tk.Canvas(root, bg='black', height=400, width=300,highlightthickness=0)
-
+can2.pack(side=tk.RIGHT,fill="both", expand=True)
+#Can sera o canvas com a janela transparente para captar movimentos dos kalunguinhas
 can = tk.Canvas(window, bg=transparent_color, height=400, width=300,highlightthickness=0)
+can.pack(side=tk.RIGHT,fill="both", expand=True)
+
 
 def fail_click(evt):
     print(evt.x)
@@ -379,11 +144,6 @@ def drag(event):   # drag by holding mouse button 1
                 can.coords(captured, xt, yt)
     else:
         append_and_draw(event)
-#window.wm_attributes("-alpha", 0.5)
-can.pack(side=tk.RIGHT,fill="both", expand=True)
-
-can2.pack(side=tk.RIGHT,fill="both", expand=True)
-
 def close(e):
  window.destroy()
 window.bind('<Escape>', close)
@@ -395,7 +155,6 @@ menus.bind('<Escape>', close)
 def toggleWindows():
     # create the class instance
     menus.overrideredirect(False)
-   # window.attributes('-transparentcolor', 'green', '-topmost', 1)
 window.bind('<KeyPress-shift>', toggleWindows())
 '''
 can.bind('<Button-1>', capture)
@@ -414,15 +173,6 @@ imageLayer.bind('<B1-Motion>', drag)
 window.bind('<Button-1>', capture)
 window.bind('<ButtonRelease-1>', release)
 window.bind('<B1-Motion>', drag)
-
-'''
-btn_line = tk.Button(window, text='Line', width=buttonWidth, height=buttonHeight,command=create_line)
-btn_line.pack()
-'''
-'''
-btn_circle = tk.Button(window, text='Circle', width=buttonWidth, command=create_circle)
-btn_circle.pack()
-'''
 
 btn_delete = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='Apagar \nSelecionado', font= customFont, width=buttonWidth, height=buttonHeight, command=delete)
 btn_apagartudo = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='Apagar \nTudo', font= customFont, width=buttonWidth, height=buttonHeight, command=shiftdelete)
@@ -469,9 +219,6 @@ def createFirstMenu():
 
 def createItirenariosMenu():
     
-    #btn_drawitirenarios = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='Criar Itinerário',  font= customFont, width=buttonWidth, height=buttonHeight, command=lambda: [setSelectedDraw(True)])
-    #btn_drawitirenarios.pack()
-    
     btn_corvermelha = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg="#c45e6a", text='Vermelho',  font= customFont, width=buttonWidth, height=buttonHeight, command=lambda: [setSelectedDraw(True), setColor("red")])
     btn_corvermelha.pack(side=defaultSide,expand=tk.YES,fill="both")
     
@@ -506,7 +253,7 @@ def destroyFirstMenu():
 
 def createCiasMenu():
     
-    btn_28bimec = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='28bimec', font= customFont,  width=buttonWidth, height=buttonHeight, command=create28bimec)
+    btn_28bimec = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='28bimec', font= customFont,  width=buttonWidth, height=buttonHeight, command=lambda:(createKalunga(0)))
     btn_1cia = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='1° Cia',  font= customFont, width=buttonWidth, height=buttonHeight, command=lambda: [createPelMenu(1),  btn_28bimec.destroy(),btn_ccap.destroy(),btn_1cia.destroy(), btn_2cia.destroy(),btn_3cia.destroy(), btn_voltar.destroy()])
     btn_2cia = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='2° Cia',  font= customFont, width=buttonWidth, height=buttonHeight, command=lambda: [createPelMenu(2),  btn_28bimec.destroy(),btn_ccap.destroy(),btn_1cia.destroy(), btn_2cia.destroy(),btn_3cia.destroy(), btn_voltar.destroy()])
     btn_3cia = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='3° Cia', font= customFont,  width=buttonWidth,height=buttonHeight, command=lambda: [createPelMenu(3),  btn_28bimec.destroy(),btn_ccap.destroy(),btn_1cia.destroy(), btn_2cia.destroy(),btn_3cia.destroy(), btn_voltar.destroy()])
@@ -536,14 +283,10 @@ def append_and_draw(event):
     global lastmetter
     global line
     global line_options
-# dictionary to allow easier change of line options
     points.extend([event.x, event.y])
     print ((line))
     if len(points) - lastmetter > 100:
         lastmetter = len(points)
-       # label_disance = Label(can, text=str(lastmetter) + "m", font= ('Aerial 10'))
-       # label_disance.place(x = event.x,y = event.y)
-       # lines.append(label_disance)
     if len(points) == 4:
   
         lastmetter=0
@@ -575,13 +318,12 @@ def clear_list(event=None):
     points.clear()
     line = None
 def createCAPmenu():
-    
-    btn_ccap = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='CCAP', font= customFont,  width=buttonWidth, height=buttonHeight, command=create_ccap)
-    btn_pelcom = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='Pel Com', font= customFont,  width=buttonWidth, height=buttonHeight, command=lambda: [create_pelcom()])
-    btn_pelrec = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='Pel Rec', font= customFont,  width=buttonWidth, height=buttonHeight, command=lambda: [create_pelexp()])
-    btn_pelmort = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='Pel Mort', font= customFont,  width=buttonWidth,height=buttonHeight, command=lambda: [create_pelmort()])
-    btn_pelsau = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='Pel Sau', font= customFont,  width=buttonWidth,height=buttonHeight, command=lambda: [create_saude()])
-    btn_pmt = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='PMT', font= customFont, width=buttonWidth,height=buttonHeight, command=lambda: [create_pmt()])
+    btn_ccap = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='CCAP', font= customFont,  width=buttonWidth, height=buttonHeight, command=lambda:[createKalunga(4)])
+    btn_pelcom = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='Pel Com', font= customFont,  width=buttonWidth, height=buttonHeight, command=lambda: [createKalunga(12)])
+    btn_pelrec = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='Pel Rec', font= customFont,  width=buttonWidth, height=buttonHeight, command=lambda: [createKalunga(13)])
+    btn_pelmort = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='Pel Mort', font= customFont,  width=buttonWidth,height=buttonHeight, command=lambda: [createKalunga(4)])
+    btn_pelsau = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='Pel Sau', font= customFont,  width=buttonWidth,height=buttonHeight, command=lambda: [createKalunga(16)])
+    btn_pmt = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='PMT', font= customFont, width=buttonWidth,height=buttonHeight, command=lambda: [createKalunga(15)])
     btn_voltar = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='Voltar', font= customFont,  width=buttonWidth, height=buttonHeight, command=lambda: [createCiasMenu(), btn_28bimec.destroy(), btn_ccap.destroy(),btn_pmt.destroy(),btn_pelcom.destroy(),btn_pelsau.destroy(), btn_pelrec.destroy(),btn_pelmort.destroy(), btn_voltar.destroy()])
     
     btn_ccap.pack(side=defaultSide,expand=tk.YES,fill="both")   
@@ -593,9 +335,9 @@ def createCAPmenu():
     btn_voltar.pack(side=tk.RIGHT,expand=tk.YES,fill="both")
 def createPelMenu(posicao):
 
-    btn_1cia = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='1° Cia', font= customFont,  width=buttonWidth, height=buttonHeight, command=create_1cia)
-    btn_2cia = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='2° Cia', font= customFont,  width=buttonWidth, height=buttonHeight, command=create_2cia)
-    btn_3cia = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='3° Cia', font= customFont,  width=buttonWidth, height=buttonHeight, command=create_3cia)
+    btn_1cia = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='1° Cia', font= customFont,  width=buttonWidth, height=buttonHeight, command=lambda: [createKalunga(1)])
+    btn_2cia = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='2° Cia', font= customFont,  width=buttonWidth, height=buttonHeight, command=lambda: [createKalunga(2)])
+    btn_3cia = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='3° Cia', font= customFont,  width=buttonWidth, height=buttonHeight, command=lambda: [createKalunga(3)])
     if(posicao == 1):
         btn_1cia.pack(side=defaultSide,expand=tk.YES,fill="both")
     elif(posicao == 2):
@@ -614,10 +356,10 @@ def createPelMenu(posicao):
     btn_voltar = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='Voltar',font= customFont, width=buttonWidth, height=buttonHeight, command=lambda:[createCiasMenu(), btn_voltar.destroy(),btn_1pelotao.destroy(), btn_2pelotao.destroy(),btn_3pelotao.destroy(), btn_4pelotao.destroy(), btn_1cia.destroy(),btn_2cia.destroy(),btn_3cia.destroy(), btn_voltar.destroy()])
     btn_voltar.pack(side=tk.RIGHT,expand=tk.YES)
 def createGC(posicao, pel):
-    btn_1pelotao = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='1° Pelotão', font= customFont,  width=buttonWidth, height=buttonHeight, command=create_1pelotao)
-    btn_3pelotao = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='3° Pelotão', font= customFont,  width=buttonWidth, height=buttonHeight, command=create_3pelotao)
-    btn_2pelotao = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='2° Pelotão', font= customFont,  width=buttonWidth, height=buttonHeight, command=create_2pelotao)
-    btn_4pelotao = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='Pelotão de apoio', font= customFont,  width=buttonWidth, height=buttonHeight, command=create_4pelotao)
+    btn_1pelotao = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='1° Pelotão', font= customFont,  width=buttonWidth, height=buttonHeight, command=lambda:[createKalunga(5)])
+    btn_3pelotao = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='3° Pelotão', font= customFont,  width=buttonWidth, height=buttonHeight, command=lambda:[createKalunga(7)])
+    btn_2pelotao = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='2° Pelotão', font= customFont,  width=buttonWidth, height=buttonHeight, command=lambda:[createKalunga(6)])
+    btn_4pelotao = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='Pelotão de apoio', font= customFont,  width=buttonWidth, height=buttonHeight, command=lambda:[createKalunga(8)])
     if(pel == 1):
         btn_1pelotao.pack(side=defaultSide,expand=tk.YES,fill="both")
     elif(pel == 2):
@@ -627,9 +369,9 @@ def createGC(posicao, pel):
     elif(pel == 4):
         btn_4pelotao.pack(side=defaultSide,expand=tk.YES,fill="both")
     
-    btn_1gc = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='1° GC', font= customFont,  width=buttonWidth, height=buttonHeight, command=create_1gc)
-    btn_2gc = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='2° GC', font= customFont,  width=buttonWidth, height=buttonHeight, command=create_2gc)
-    btn_3gc = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='3° GC', font= customFont,  width=buttonWidth, height=buttonHeight, command=create_3gc)
+    btn_1gc = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='1° GC', font= customFont,  width=buttonWidth, height=buttonHeight, command=lambda:[createKalunga(9)])
+    btn_2gc = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='2° GC', font= customFont,  width=buttonWidth, height=buttonHeight, command=lambda:[createKalunga(10)])
+    btn_3gc = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='3° GC', font= customFont,  width=buttonWidth, height=buttonHeight, command=lambda:[createKalunga(11)])
     btn_1gc.pack(side=defaultSide,expand=tk.YES,fill="both")
     btn_2gc.pack(side=defaultSide,expand=tk.YES,fill="both")
     btn_3gc.pack(side=defaultSide,expand=tk.YES,fill="both")
@@ -641,11 +383,8 @@ def destroyCiasMenu(btn_1cia,btn_2cia,btn_3cia):
     btn_2cia.destroy()
     btn_3cia.destroy()
 
-#window.overrideredirect(True)
 menus.resizable(True, True)
 menus.configure(bg="black")
-#menus.geometry("400x400+500+300")
-#menus.geometry('{}x{}+{}+{}'.format(menus.winfo_width(), menus.winfo_height(), 10, 10))
 
 menus.geometry('{}x{}+{}+{}'.format(GetSystemMetrics(0),str(int(float(buttonHeight) *1.0)),0 + secondMonitor,str(int(float(GetSystemMetrics(1))) - int(float(buttonHeight) *1.0))))
 root.attributes('-transparentcolor', transparent_color)
@@ -675,10 +414,6 @@ side.bind("<B1-Motion>", resize)
 def move_imagelayer(event):
     imageLayer.geometry(f'+{event.x_root}'+f'+{event.y_root}')
 imageLayer.bind("<i>", move_imagelayer)
-#imageLayer.winfo_rootx()
-           #     fy = imageLayer.winfo_rooty()
-           
-#imageLayer.geometry('{}x{}+{}+{}'.format(GetSystemMetrics(1)- 50,GetSystemMetrics(1) - 100,700,50))
 side.place(relx=1, y=0, anchor=tk.NE)
 imageLayer.overrideredirect(True)
 menus.overrideredirect(True)
@@ -686,14 +421,7 @@ window.overrideredirect( True)
 
 wth,hgh = window.winfo_screenwidth(),window.winfo_screenheight()
 window.geometry('{}x{}+{}+{}'.format(GetSystemMetrics(0) ,GetSystemMetrics(1),secondMonitor,0))
-
-
-
 def move_window(event):
     menus.geometry(f'+0+{event.y_root}')
-
-
-#transparent background
-#window.wm_attributes('-alpha',0.5  )
 menus.bind("<space>", move_window)
 window.mainloop()
