@@ -5,6 +5,6 @@ from classes.windowsLoader import *
 
 def main():
     createFirstMenu()
-
+    
 main()
 window.mainloop()
