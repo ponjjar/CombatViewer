@@ -5,5 +5,5 @@ try:
     linhas = arquivo.readlines()
     secondMonitor = int(linhas[0].replace("\n", "").split(":")[1])
 finally:
-                #Fechar o arquivo
+                #Fecha o arquivo
                 arquivo.close ()

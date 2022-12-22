@@ -4,6 +4,7 @@ customWidth = 120
 
 #1cia CCAP = 1, 4 - 1 pel 1gc -> 5,9 - pelcom -> 12- pelmort -> 14 - pelexp -> 13 - pmt -> 15 - saude -> 16
 
+#diretório das imagens do pais aliado
 ImagePathPais = [
 "./kalunguinhas/28bimec.png", 
 "./kalunguinhas/28bimec/cias/1.png",
@@ -23,6 +24,7 @@ ImagePathPais = [
 "./kalunguinhas/28bimec/cias/ccap/pmt.png",
 "./kalunguinhas/28bimec/cias/ccap/saude.png"]
 
+#diretório das imagens do pais inimigo
 ImagePathPaisVermelho = [
 "./kalunguinhas-vermelho/28bimec.png", 
 "./kalunguinhas-vermelho/28bimec/cias/1.png",
@@ -42,15 +44,14 @@ ImagePathPaisVermelho = [
 "./kalunguinhas-vermelho/28bimec/cias/ccap/pmt.png",
 "./kalunguinhas-vermelho/28bimec/cias/ccap/saude.png"]
 
+#carrega as imagens de ambos paises
 def OpenPhotoImagePais (imageNumber):
     global ImagePathPais,customWidth,customHeight
-
-    print("Criado " + ImagePathPais[imageNumber])
     return ImageTk.PhotoImage(Image.open(ImagePathPais[imageNumber]).resize((customWidth,customHeight), Image.ANTIALIAS))
 
 def OpenPhotoImagePaisVermelho (imageNumber):
     return ImageTk.PhotoImage(Image.open(ImagePathPaisVermelho[imageNumber]).resize((customWidth,customHeight), Image.ANTIALIAS))
-#Carrega as imagens inicialmente
+#Carrega as imagens inicialmente criando uma lista com elas
 imagesPais = []
 imagesPaisVermelho = []
 for i in range(len(ImagePathPais)):
@@ -58,6 +59,3 @@ for i in range(len(ImagePathPais)):
         imagesPaisVermelho.append(OpenPhotoImagePaisVermelho(i))
 bimec= OpenPhotoImagePaisVermelho(0)
 OpenPhotoImagePaisVermelho(0)
-
-#Cores das linhas do itirenário
-
