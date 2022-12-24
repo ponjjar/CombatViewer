@@ -65,6 +65,7 @@ $ pip install ...
 py lasermouse.py
 ```
 Saiba mais acessando o manual [Memento CombatViewer](https://github.com/Caique-P/CombatViewer/blob/main/Memento%20CombatViewer.pdf).
+
 Contribuições são sempre bem vindas, para isso, você pode abrir uma issue ou um pull request que irá para analise.
 
 <p align="center">
