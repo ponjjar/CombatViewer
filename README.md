@@ -68,7 +68,7 @@ py lasermouse.py
 
 <p align="center">
 <b><a href='https://github.com/Caique-P/CombatViewer/archive/refs/heads/main.zip'> Fazer download do CombatViewer </a></b><br/>
-<b><a href='https://github.com/Caique-P/CombatViewer/blob/main/Memento%20CombatViewer.pdf'> Saiba mais acessando o manual </a></b><br/><br/>
+<b><a href='https://github.com/Caique-P/CombatViewer/raw/main/Memento%20CombatViewer.pdf'> Saiba mais acessando o manual </a></b><br/><br/>
 <i> A experiência fica melhor com um indentificador de relevos:</i><br/>
 <b><a href='https://github.com/thomwolf/Magic-Sand'> Fazer download do MagicSand </a></b>
 </p>
