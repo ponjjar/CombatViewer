@@ -54,6 +54,7 @@ A metodologia Scrum é uma abordagem ágil para o desenvolvimento de produtos, b
 
 
 <h2 align="center"> Na sua maquina :computer:</h2>
+<p align="center">Contribuições são sempre bem vindas, para isso, você pode abrir uma issue ou um pull request que irá para analise.</p>
 
 ```
 # Clone o repositório ou faça download do repositório
@@ -64,14 +65,12 @@ $ pip install ...
 # Comece pela calibragem do laser e então será aberto o combatviewer
 py lasermouse.py
 ```
-Saiba mais acessando o manual [Memento CombatViewer](https://github.com/Caique-P/CombatViewer/blob/main/Memento%20CombatViewer.pdf).
-
-Contribuições são sempre bem vindas, para isso, você pode abrir uma issue ou um pull request que irá para analise.
 
 <p align="center">
+<b><a href='https://github.com/Caique-P/CombatViewer/archive/refs/heads/main.zip'> Fazer download do CombatViewer </a></b><br/>
+<b><a href='https://github.com/Caique-P/CombatViewer/blob/main/Memento%20CombatViewer.pdf'> Saiba mais acessando o manual </a></b><br/><br/>
 <i> A experiência fica melhor com um indentificador de relevos:</i><br/>
 <b><a href='https://github.com/thomwolf/Magic-Sand'> Fazer download do MagicSand </a></b>
-
 </p>
 
 <br/>
