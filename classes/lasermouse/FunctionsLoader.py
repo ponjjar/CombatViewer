@@ -201,7 +201,7 @@ done1 = 0
 # função para executar o bat
 def bat1():
     global done1, res1
-    res1 = os.system("python ./CombateViewer.py")
+    res1 = os.system("python ./CombatViewer.py")
     done1 = 1
 # função principal
 def main(calibration):
