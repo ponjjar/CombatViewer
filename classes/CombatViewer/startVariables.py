@@ -17,7 +17,7 @@ selectedDraw = False
 defaultSide = tk.LEFT
 
 
-from classes.settingsLoader import *
+from classes.CombatViewer.settingsLoader import *
 #Cria as janelas tk.Tk()
 window = tk.Tk()
 #Cria uma outra janela a partir da window, isso significa que são "filhas"
