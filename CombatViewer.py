@@ -1,7 +1,7 @@
 '''CombatViewer - Feito por Caique Ponjjar'''
 
 #Importa as janelas que irão carregar as classes e os outros atributos
-from classes.windowsLoader import *
+from classes.CombatViewer.windowsLoader import *
 
 def main():
     createFirstMenu()

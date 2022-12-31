@@ -2,10 +2,10 @@
 import tkinter as tk
 from win32api import GetSystemMetrics
 from PIL import Image,ImageTk
-from classes.startVariables import *
+from classes.CombatViewer.startVariables import *
 global object_id
 
-from classes.imagesLoader import *
+from classes.CombatViewer.imagesLoader import *
 
 #função que cria o objeto kalunga
 def createKalunga(id):
