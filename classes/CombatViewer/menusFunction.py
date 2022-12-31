@@ -121,17 +121,17 @@ def transformBlue():
     paisvermelho=False
 #cria o menu inicial
 def createFirstMenu():
-    btn_28bimec = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground,text='28bimec',  font= customFont, width=buttonWidth, height=buttonHeight, command=lambda: [createCiasMenu(), btn_itirenarios.destroy(), btn_28bimec.destroy(), btn_paisvermelho.destroy(),btn_patrulha.destroy()])
+    btn_28bimec = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground,text='28bimec',  font= customFont, width=buttonWidth, height=buttonHeight, command=lambda: [createCiasMenu(), btn_itirenarios.destroy(), btn_28bimec.destroy(), btn_paisvermelho.destroy()])
     btn_28bimec.pack(side=defaultSide,expand=tk.YES, fill="both")
     
-    btn_itirenarios = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground,  text='Itirenarios',  font= customFont, width=buttonWidth, height=buttonHeight, command=lambda: [createItirenariosMenu(), btn_itirenarios.destroy(), btn_28bimec.destroy(), btn_paisvermelho.destroy(),btn_patrulha.destroy()])
+    btn_itirenarios = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground,  text='Itirenarios',  font= customFont, width=buttonWidth, height=buttonHeight, command=lambda: [createItirenariosMenu(), btn_itirenarios.destroy(), btn_28bimec.destroy(), btn_paisvermelho.destroy()])
     btn_itirenarios.pack(side=defaultSide,expand=tk.YES,fill="both")
     
-    btn_paisvermelho = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground,text='Pais vermelho',   font= customFont, width=buttonWidth, height=buttonHeight,  command=lambda: [transformRed(),createCiasMenu(), btn_itirenarios.destroy(), btn_28bimec.destroy(), btn_paisvermelho.destroy(),btn_patrulha.destroy()])
+    btn_paisvermelho = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground,text='Pais vermelho',   font= customFont, width=buttonWidth, height=buttonHeight,  command=lambda: [transformRed(),createCiasMenu(), btn_itirenarios.destroy(), btn_28bimec.destroy(), btn_paisvermelho.destroy()])
     btn_paisvermelho.pack(side=defaultSide,expand=tk.YES,fill="both")
     
-    btn_patrulha = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='Patrulha',   font= customFont, width=buttonWidth, height=buttonHeight,)
-    btn_patrulha.pack(side=defaultSide,expand=tk.YES,fill="both")
+    #btn_patrulha = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='Patrulha',   font= customFont, width=buttonWidth, height=buttonHeight)
+    #btn_patrulha.pack(side=defaultSide,expand=tk.YES,fill="both")
 
 #cria  o menu de itinerários
 def createItirenariosMenu():
@@ -164,7 +164,7 @@ btn_28bimec = tk.Button()
 
 btn_28bimec = tk.Button()
 btn_paisvermelho = tk.Button(menus,bg=buttomBackgorund,activebackground = activeColor, relief=tk.SOLID,fg=buttomForeground, text='Apagar \nSelecionado', font= customFont, width=buttonWidth, height=buttonHeight, command=delete)
-btn_patrulha = tk.Button()
+#btn_patrulha = tk.Button()
 btn_1cia = tk.Button()
 btn_2cia = tk.Button()
 btn_3cia = tk.Button()
