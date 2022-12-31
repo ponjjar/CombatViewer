@@ -1,5 +1,5 @@
 #importação dos menus com as funções junto com as bibliotecas
-from classes.CombatViewer.menusFunction import *
+from classes.menusFunction import *
 
 from win32 import win32api
 #binds do canvas

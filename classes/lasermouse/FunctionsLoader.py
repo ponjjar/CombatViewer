@@ -1,6 +1,6 @@
 # importando bibliotecas
 import cv2, mouse, keyboard,  time, pyautogui, threading, os
-from classes.LaserMouse.StartVariables import *
+from classes.lasermouse.StartVariables import *
  
 # iniciando a camera
 cap = cv2.VideoCapture(CAMERA_INDEX, cv2.CAP_DSHOW)
