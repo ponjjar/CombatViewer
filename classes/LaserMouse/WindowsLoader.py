@@ -20,7 +20,7 @@ def win():
         top.title("Definir Resolução")
         Label(top, text="Resolução da Largura da Primeira tela", font=  ("Aerial 15")).pack()
         a=Entry(top, font=  ("Aerial 15"),width=10)
-        a.insert(END, '1280')
+        a.insert(END, '1920')
         a.pack()
         Label(top, text="Resolução da Largura da Segunda tela", font=  ("Aerial 15")).pack()
         c=Entry(top, font=  ("Aerial 15"),width=10)
@@ -39,8 +39,8 @@ def win():
         
         def changeresolutions():
             t1=int(a.get())
-            t2=int(b.get())
-            t3=int(c.get())
+            t2=int(c.get())
+            t3=int(b.get())
             t4=int(d.get())
             #Abrir um arquivo para escrita
             arquivo = open('settings.txt', 'w')
