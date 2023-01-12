@@ -45,7 +45,11 @@ A metodologia Scrum é uma abordagem ágil para o desenvolvimento de produtos, b
 <i> O C2 em combate, software ja existente para planejamento complexo, pode apresentar dificuldades para apresentações, por outro lado, o CombatViewer visa  facilitar a apresentação do  planejamento.</i>
 </p>
 
-
+<h2 align="center"> Vídeo de demonstração </h2>
+<p align="center">
+<a align="center" href="https://youtu.be/cIhuSv54AEI">
+ <img align="center"src="https://img.youtube.com/vi/cIhuSv54AEI/0.jpg" width="50%;" alt="Youtube: Aplicativo Base de Planejamento Interativo"/></a>
+</p>
 <h2 align="center"> Ferramentas utilizadas 🚀 </h2>
 <p align="center">
   <img src="https://img.shields.io/badge/Python-0095D5?&style=for-the-badge&logo=Python&logoColor=white"/>
@@ -65,7 +69,6 @@ $ pip install ...
 # Comece pela calibragem do laser e então será aberto o combatviewer
 py lasermouse.py
 ```
-
 <p align="center">
 <b><a href='https://github.com/Caique-P/CombatViewer/archive/refs/heads/main.zip'> Fazer download do CombatViewer </a></b><br/>
 <b><a href='https://github.com/Caique-P/CombatViewer/raw/main/Memento%20CombatViewer.pdf'> Saiba mais acessando o manual </a></b><br/><br/>
